@@ -2,9 +2,20 @@ import mongoose from "mongoose";
 import PostMessage from "../models/PostMessage.js";
 
 export const getPosts = async (req, res) => {
+    const page = parseInt(req.query.page);
+    const size = parseInt(req.query.size);
     try {
-        const postMessage = await PostMessage.find();
+        const postMessage = await PostMessage.find().skip((page - 1) * size).limit(size);
         res.status(200).json(postMessage);
+    } catch (error) {
+        res.status(404).json({ message: error });
+    }
+};
+
+export const countPosts = async (req, res) => {
+    try {
+        const count = await PostMessage.count();
+        res.status(200).json(count);
     } catch (error) {
         res.status(404).json({ message: error });
     }

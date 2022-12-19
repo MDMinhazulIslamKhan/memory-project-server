@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken';
 import User from "../models/user.js";
-
+// this is for authentication, but not use. because I use firebase 
 export const signIn = async (req, res) => {
     const { email, password } = req.body;
     try {
